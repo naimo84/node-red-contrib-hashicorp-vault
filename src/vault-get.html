@@ -1,0 +1,112 @@
+<script type="text/javascript">
+
+
+    RED
+        .nodes
+        .registerType('vault-get', {
+            category: 'hashicorp vault',
+            defaults: {
+                confignode: {
+                    value: "",
+                    type: "vault-config",
+                    required: false
+                },
+                name:{},
+                application: {},
+                applicationtype: {},
+                secret: {},
+                secrettype: {},
+                action:{},
+                data:{},
+                datatype:{}
+            },
+            inputs: 1,
+            outputs: 1,
+            color: "#DEBD5C",
+            label: function () {
+                if (this.name) {
+                    return this.name;
+                } else if (this.confignode.name) {
+                    return this.confignode.name;
+                }
+                return "vault secrets";
+            },
+            icon: "icon.svg",
+            paletteLabel: "vault secret",
+            oneditprepare: function () {
+                var node = this;
+                $("#node-input-data").typedInput({
+                    types: ["msg", "json"],
+                    typeField: "#node-input-datatype"                  
+                });
+                $("#node-input-secret").typedInput({
+                    types: ["str","msg", "flow","global"],
+                    typeField: "#node-input-secrettype"
+                }); 
+                $("#node-input-application").typedInput({
+                    types: ["msg", "str"],
+                    typeField: "#node-input-applicationtype"                  
+                });
+                $("#node-input-application").typedInput('width', '300px');
+            }
+        });
+</script>
+
+<script type="text/x-red" data-template-name="vault-get">
+    <style>
+        .event {
+            display:flex;
+        }
+        .event input {
+            flex:1
+        }
+        .event select {
+            flex:2
+        }
+        .event label {
+            min-width: 110px;
+            align-self: center;
+        }  
+        .padding-top {
+            padding-top: 10px;
+        }
+    </style>   
+
+    <div class="form-row event">        
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span>Name</span></label>
+        <input type="text" id="node-input-name">
+    </div>
+    <hr/>
+    <div class="form-row event">
+        <label for="node-input-confignode"><i class="fa fa-globe"></i> <span>Config</span></label>
+        <input type="text" id="node-input-confignode">
+    </div>
+    <div class="form-row event">
+        <label for="node-input-secret"><i class="fa fa-globe"></i> <span>secret</span></label>
+        <input type="text" id="node-input-secrettype">
+        <input type="text" id="node-input-secret">
+    </div>
+    <div class="form-row event">
+        <label for="node-input-application"><i class="fa fa-globe"></i> <span>application</span></label>
+        <input type="text" id="node-input-application">
+        <input type="text" id="node-input-applicationtype">
+    </div>
+    <div class="form-row event">
+        <label for="node-input-action"><i class="fa fa-clock-o"></i> <span>action</span></label>        
+        <select id="node-input-action">          
+          <option value="get">get</option>
+          <option value="create">create</option>
+        </select>
+    </div>
+    <div class="form-row event">
+        <label for="node-input-data"><i class="fa fa-globe"></i> <span>data</span></label>
+        <input type="text" id="node-input-data">
+        <input type="hidden" id="node-input-datatype">
+    </div>  
+    
+</script>
+
+<!-- Simple Help Text -->
+<script type="text/x-red" data-help-name="vault-get">
+
+</script>

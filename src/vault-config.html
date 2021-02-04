@@ -1,0 +1,58 @@
+<script type="text/javascript">
+    RED
+        .nodes
+        .registerType('vault-config', {
+            category: 'config',
+            defaults: {
+                endpoint: {
+                    value: '',
+                },               
+                name: {
+                    value: '',
+                },               
+            },
+            credentials: {               
+                configtoken: { type: "password" }
+            },
+            label: function () {
+                if (this.name) {
+                    return this.name;
+                }
+                return 'springcloud config';
+            },
+            oneditprepare: function () {
+                var node = this;
+
+               
+            },
+        });
+</script>
+
+<script type="text/x-red" data-template-name="vault-config">
+    <div class="form-row">
+        <label for="node-config-input-name" style="width:160px !important">
+            <i class="fa fa-user"></i>
+            <span>Name:</span></label>
+        <input type="text" id="node-config-input-name" placeholder="" style="width:280px !important">
+    </div>
+    <hr/>
+    <div class="form-row" style="display:flex">
+        <label for="node-config-input-endpoint" style="min-width:160px !important">
+            <i class="fa fa-link"></i>
+            <span>url to vault server:</span></label>
+        <input type="text" id="node-config-input-endpoint" placeholder="" style="width:100% !important">
+    </div>
+   
+   
+    <div class="form-row">
+        <label for="node-config-input-configtoken" style="width:160px !important">
+            <i class="fa fa-key"></i>
+            <span>Token:</span></label>
+        <input type="password" id="node-config-input-configtoken" placeholder="" style="width:280px !important">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="vault-config">
+    
+
+</script>
