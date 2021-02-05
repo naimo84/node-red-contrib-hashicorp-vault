@@ -1,10 +1,6 @@
-# Node RED ical events
+# Node RED hashicorp vault 
 
-This Node RED module gets the events from an ical-URL, a caldav-server or from iCloud.
-
-**Please Note** that:
-
-* v1+ requires Node.js v10+ and recommends Node-RED v1+
+This Node RED module gets and sets secrets to a hashicorp vault server
 
 ## :question: Get Help
 
@@ -32,10 +28,10 @@ First of all install [Node-RED](http://nodered.org/docs/getting-started/installa
 $ sudo npm install -g node-red
 # Then open  the user data directory  `~/.node-red`  and install the package
 $ cd ~/.node-red
-$ npm install node-red-contrib-ical-events
+$ npm install node-red-contrib-hashicorp-vault
 ```
 
-Or search for ical-events in the manage palette menu
+Or search for hashicorp-vault in the manage palette menu
 
 Then run
 
@@ -48,200 +44,16 @@ node-red
 Have an idea? Found a bug? See [how to contribute][contributing].
 
 ```sh
-git clone https://github.com/naimo84/node-red-contrib-ical-events.git
-cd node-red-contrib-ical-events
+git clone https://github.com/naimo84/node-red-contrib-hashicorp-vault.git
+cd node-red-contrib-hashicorp-vault
 npm install
 gulp
 cd ~/.node-red
-npm install /path/to/node-red-contrib-ical-events
+npm install /path/to/node-red-contrib-hashicorp-vault
 ```
 
 ## :memo: Documentation
 
-### node explanation
-
-#### trigger
-
-The calendar is checked for new events on input or cronjob. For events in the future within the preview timespan, a separated cronjob is generated. It's fired on the start datetime of the ical event. So, on input or check-cronjob, no output is generated. Only when an event starts.
-
-##### Configuration
-
--   "Check every": how often the calendar is checked for new events
--   "Trigger": possible values:
-
-    -   Always (Filter expression is ignored)
-    -   Match (only events that match the Filter expression are processed)
-    -   No Match (only events that don't match the Filter expression are processed)
-
--   "Filter property": possible values:
-        -     summary
-        -     description
-        -     attendee
-        -     category
-        -     start date
-        -     end date   
-
-    if filterProperty is set to "start date" or "end date", additonally a filter operator is shown:  
-    filter format for dates is **YYYY-MM-DD_hh:mm:sss**     
-    
-    "Filter operator": possible values:
-    -   between
-    -   before
-    -   after
--   "Filter": filter property of the events from above is filtered against this regular expression
--   "Offset": offset, when the start/end cronjob will be triggered (seconds, minutes, hours)
--   "Name": Displayname
-
----
-
-#### sensor
-
-The calendar is checked for running events on input or configurable timeout.
-
-##### Configuration
-
--   "Check every": how often the calendar is checked for new events
--   "Trigger": possible values:
-
-    -   Always (Filter expression is ignored)
-    -   Match (only events that match the Filter expression are processed)
-    -   No Match (only events that don't match the Filter expression are processed)
-
--   "Filter property": possible values:
-        -     summary
-        -     description
-        -     attendee
-        -     category
-        -     start date
-        -     end date   
-
-    if filterProperty is set to "start date" or "end date", additonally a filter operator is shown:  
-    filter format for dates is **YYYY-MM-DD_hh:mm:sss**     
-    
-    "Filter operator": possible values:
-    -   between
-    -   before
-    -   after
--   "Filter": filter property of the events from above is filtered against this regular expression
--   "Name": Displayname
-
-If an event is running at time of checking, **msg.on** is true, otherwise false.
-
-The message additionaly contains the following values of the calendar entry
-
-- summary
-- id
-- location
-- eventStart
-- eventEnd
-- description
-- allDay
-- attendee
-- isRecurring
-- calendarName
-- organizer
-- categories
-- duration
-
----
-
-#### upcoming
-
-As of the events node, its checked on input or cronjob. The msg.payload contains a list of upcoming events.
-##### Configuration
-
--   "Check every": how often the calendar is checked for new events
--   "Trigger": possible values:
-
-    -   Always (Filter expression is ignored)
-    -   Match (only events that match the Filter expression are processed)
-    -   No Match (only events that don't match the Filter expression are processed)
-
--   "Filter property": possible values:
-        -     summary
-        -     description
-        -     attendee
-        -     category
-        -     start date
-        -     end date   
-        
-    if filterProperty is set to "start date" or "end date", additonally a filter operator is shown:  
-    filter format for dates is **YYYY-MM-DD_hh:mm:sss**     
-    
-    "Filter operator": possible values:
-    -   between
-    -   before
-    -   after
--   "Filter": filter property of the events from above is filtered against this regular expression
--   "Name": Displayname
--   "Preview": Only Events within now and this **future** value are checked.
--   "Past view": Only Events within now and this **past** value are checked.
-
-### INPUT
-
-The configuration of the nodes baove can be overwritten with the following input message properties:
-
-msg.url
-msg.language
-msg.replacedates
-msg.caldav
-msg.username
-msg.password
-msg.calendar
-msg.pastWeeks
-msg.futureWeeks
-msg.filter
-msg.trigger
-msg.preview
-msg.previewUnits
-msg.pastview
-msg.pastviewUnits
-msg.offset
-msg.offsetUnits
-
-### OUTPUT
-
-Additional msg properties are:
-
--   msg.today - number of upcoming events today
--   msg.tomorrow - number of upcoming events tomorrow
--   msg.total - number of upcoming events totally
--   msg.htmlTable - a html formated table of upcoming events
--   msg.payload - arraylist of upcoming events
-    -   date
-    -   event
-    -   rule
-    - summary
-    - id
-    - location
-    - eventStart
-    - eventEnd
-    - description
-    - allDay
-    - attendee
-    - isRecurring
-    - calendarName
-    - organizer
-    - categories
-    - duration
-
----
-
-### General Configuration:
-
--   **_URL_** URL to Calendar
--   **_Replace Dates with name_** Dates are formated in a readable way, like today, tommorrow, in 3 weeks,...
--   **_Language_** if dates are replaced with names, the following languages are available at the moment Deutsch, English, русский, polski, Nederlands, français, Italiano, Espanol
--   **_Username_** HTTP Basic authentication user
--   **_Password_** HTTP Basic authentication user
--   **_Type_** Type can be ical or caldav
-
-
-![example.png](https://github.com/naimo84/node-red-contrib-ical-events/raw/master/examples/example.png)
-
-## :scroll: Credits
-
--   The whole module is inspired by ioBroker's adapter https://github.com/iobroker-community-adapters/ioBroker.ical. Many many thanks folks ;)
 
 ## :scroll: The MIT License
 
