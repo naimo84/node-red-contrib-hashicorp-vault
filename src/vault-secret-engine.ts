@@ -48,18 +48,26 @@ module.exports = function (RED: any) {
                 let response = await vault.mounts()
                 payload = response.data;
             } else if (vaultConfig.action === 'create') {
-                let mounts = await vault.mounts()
-
+                let mounts = {}
+                try {
+                    mounts = await vault.mounts()
+                } catch { }
                 let exists = Object.keys(mounts).some((item, idx) => {
-                    if (item.replace('/', '') === (vaultConfig.config as any).mount_point) {
+                    if (item.replace('/', '') === vaultConfig.secret) {
                         return true;
                     }
                 })
+
                 if (!exists) {
+                    if (vaultConfig.secret) {
+                        vaultConfig.config.mount_point = vaultConfig.secret;
+                    }
                     await vault.mount(vaultConfig.config)
                     payload = Object.assign(vaultConfig.config, {
                         created: true
                     })
+                    node.status({ text: `${vaultConfig.secret} created` })
+
                 }
             }
 
