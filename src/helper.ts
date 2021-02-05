@@ -90,7 +90,7 @@ export function getConfig(config: any, node?: any, msg?: any): VaultConfig {
             cloudConfig.secret = msg[node.secret]
             break;
         case 'str':
-            cloudConfig.secret = JSON.parse(node?.secret)
+            cloudConfig.secret = node?.secret
             break;
         case 'flow':
             cloudConfig.secret = node.context().flow.get(node.secret)
