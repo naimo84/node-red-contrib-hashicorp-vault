@@ -71,11 +71,14 @@ module.exports = function (RED: any) {
                 }
             }
 
-            send({
+            let newMsg = Object.assign(RED.util.cloneMessage(msg), {
                 payload: payload,
-                //@ts-ignore
-                secret: node.secret
-            })
+                application: vaultConfig.application,
+                secret: vaultConfig.secret
+            });
+
+            send(newMsg)
+          
             if (done)
                 done()
         } catch (err) {

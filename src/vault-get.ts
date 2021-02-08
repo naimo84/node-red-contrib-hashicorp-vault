@@ -75,13 +75,15 @@ module.exports = function (RED: any) {
                 node.status({ text: `${cloudConfig.secret}/data/${cloudConfig.application} updated` })
 
             }
-            send({
+
+            let newMsg = Object.assign(RED.util.cloneMessage(msg), {
                 payload: payload,
-                //@ts-ignore
                 application: cloudConfig.application,
-                //@ts-ignore
                 secret: cloudConfig.secret
-            })
+            });
+
+            send(newMsg)
+
             if (done)
                 done()
         }
