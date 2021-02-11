@@ -66,7 +66,10 @@ module.exports = function (RED: any) {
                     payload = Object.assign(vaultConfig.config, {
                         created: true
                     })
-                    node.status({ text: `${vaultConfig.secret} created` })
+                    node.status({  shape: 'dot', fill: 'green', text: `${vaultConfig.secret} created` })
+
+                }else{
+                    node.status({ shape: 'dot', fill: 'yellow',  text: `${vaultConfig.secret} already exists` })
 
                 }
             }

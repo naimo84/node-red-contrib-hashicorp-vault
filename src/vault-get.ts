@@ -26,7 +26,7 @@ module.exports = function (RED: any) {
             node.on('input', (msg, send, done) => {
                 node.msg = RED.util.cloneMessage(msg);
                 send = send || function () { node.send.apply(node, arguments) }
-                cronCheckJob(node, msg, send, done, config.confignode);
+                processInput(node, msg, send, done, config.confignode);
             });
 
         }
@@ -36,7 +36,7 @@ module.exports = function (RED: any) {
         }
     }
 
-    async function cronCheckJob(node, msg: NodeMessageInFlow, send: (msg: NodeMessage | NodeMessage[]) => void, done: (err?: Error) => void, config) {
+    async function processInput(node, msg: NodeMessageInFlow, send: (msg: NodeMessage | NodeMessage[]) => void, done: (err?: Error) => void, config) {
         let cloudConfig = getConfig(RED.nodes.getNode(config), node, msg)
         var options = {
             apiVersion: 'v1', // default
@@ -60,19 +60,19 @@ module.exports = function (RED: any) {
                 try {
                     let response = await vault.read(`${cloudConfig.secret}/data/${cloudConfig.application}`)
                     payload = response.data?.data ? response.data.data : response.data;
-                    node.status({ text: `${cloudConfig.secret}/data/${cloudConfig.application} created` })
+                    node.status({ shape: 'dot', fill: 'yellow',text: `${cloudConfig.secret}/data/${cloudConfig.application} already exists` })
                 }
                 catch {
                     await vault.write(`${cloudConfig.secret}/data/${cloudConfig.application}`, cloudConfig.data)
                     payload = cloudConfig.data?.data ? cloudConfig.data.data : cloudConfig.data;
-                    node.status({ text: `${cloudConfig.secret}/data/${cloudConfig.application} already exists` })
+                    node.status({ shape: 'dot', fill: 'green',text: `${cloudConfig.secret}/data/${cloudConfig.application} created` })
                 }
             } else if (cloudConfig.action === 'update') {
                 let response = await vault.read(`${cloudConfig.secret}/data/${cloudConfig.application}`)
                 let data = mergeDeep(response.data, cloudConfig.data);
                 await vault.write(`${cloudConfig.secret}/data/${cloudConfig.application}`, data)
                 payload = data?.data ? data.data : data;
-                node.status({ text: `${cloudConfig.secret}/data/${cloudConfig.application} updated` })
+                node.status({ shape: 'dot', fill: 'green',text: `${cloudConfig.secret}/data/${cloudConfig.application} updated` })
 
             }
 
