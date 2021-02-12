@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.3 (2021-02-12)
+
+
+### Features
+
+* added update action to frontend ([427cfd5](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/427cfd5f3b4c5118c3cfa8f341635a2fefd50022))
+* clone input msg ([b8f5a42](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/b8f5a42d9dcaac348f850f2e789ba10ff8128da9))
+* initial commit/version ([5989bf7](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/5989bf7940dce71c387525b5f46c4c8ca9b435b1))
+
+
+### Bug Fixes
+
+* JSON Parse error ([8f942bb](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/8f942bbbc3af17a20b3b66a24db7b027dd940142))
+* name added ([a9fdb1c](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/a9fdb1c7e720e886321448f76aa83ca01b97ed65))
+* secret instead of mountpoint ([61ab5c5](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/61ab5c52ff6e3cb72a5d52642146acbf5de502da))
+
 ## [1.0.0-beta.1](https://github.com/naimo84/node-red-contrib-ical-events/compare/v0.22.0...v1.0.0-beta.1) (2021-01-17)
 
 
