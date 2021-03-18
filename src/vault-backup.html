@@ -1,0 +1,136 @@
+<script type="text/javascript">
+
+
+    RED
+        .nodes
+        .registerType('vault-backup', {
+            category: 'hashicorp vault',
+            defaults: {
+                confignode: {
+                    value: "",
+                    type: "vault-config",
+                    required: false
+                },
+                name: {},
+                backup: {},
+                backupfolder: {},
+                action: {},
+                decodesecret: {}
+            },
+            inputs: 1,
+            outputs: 1,
+            color: "#DEBD5C",
+            label: function () {
+                if (this.name) {
+                    return this.name;
+                } else if (this.confignode.name) {
+                    return this.confignode.name;
+                }
+                return "vault backup";
+            },
+            icon: "icon.svg",
+            paletteLabel: "backup",
+            oneditprepare: function () {
+                let node = this;
+                $('#node-input-action').change(function () {
+                    var value = $('#node-input-action').val();
+                   
+                    if (value && value === 'backup') {
+                        $('#secretlabel').text('encode secret')
+                        $('#node-input-backup').parent().hide();
+                        return;
+                    }else{
+                        $('#secretlabel').text('decode secret')
+                        $('#node-input-backup').parent().show();
+                        return;
+                    }
+                });
+
+                $("#node-config-lookup-backup").click(function () {
+                    $("#node-config-lookup-backup-icon").removeClass('fa-search');
+                    $("#node-config-lookup-backup-icon").addClass('spinner');
+                    $("#node-config-lookup-backup").addClass('disabled');
+
+                    $.getJSON(`vaultbackups/${node.id}`, function (data) {
+                        $("#node-config-lookup-backup-icon").addClass('fa-search');
+                        $("#node-config-lookup-backup-icon").removeClass('spinner');
+                        $("#node-config-lookup-backup").removeClass('disabled');
+                        var dataArray = [];
+                        $.each(data, function (i, element) {
+                            dataArray.push(element);
+                        });
+                        $("#node-input-backup").autocomplete({
+                            source: dataArray,
+                            minLength: 0,
+                            close: function (event, ui) {
+                                $("#node-input-backup").autocomplete("destroy");
+                            }
+                        }).autocomplete("search", "");
+                    });
+                });
+            }
+        });
+</script>
+
+<script type="text/x-red" data-template-name="vault-backup">
+    <style>
+        .event {
+            display:flex;
+        }
+        .event input {
+            flex:1
+        }
+        .event select {
+            flex:2
+        }
+
+        .event .btn{
+            margin:5px
+        }
+        .event label {
+            min-width: 110px;
+            align-self: center;
+        }  
+        .padding-top {
+            padding-top: 10px;
+        }
+    </style>   
+
+    <div class="form-row event">        
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span>Name</span></label>
+        <input type="text" id="node-input-name">
+    </div>
+    <hr/>
+    <div class="form-row event">
+        <label for="node-input-confignode"><i class="fa fa-globe"></i> <span>Config</span></label>
+        <input type="text" id="node-input-confignode">
+    </div>
+    
+    <div class="form-row event padding-top">
+        <label for="node-input-action"><i class="fa fa-clock-o"></i> <span>action</span></label>        
+        <select id="node-input-action">          
+          <option value="backup">backup</option>
+          <option value="restore">restore</option>
+        </select>
+    </div>
+    <div class="form-row event">
+        <label for="node-input-backup"><i class="fa fa-barcode" aria-hidden="true"></i> Backup</label>
+        <input type="text" id="node-input-backup"  placeholder="">
+        <a id="node-config-lookup-backup" class="btn">
+            <i id="node-config-lookup-backup-icon" class="fa fa-search">           
+            </i></a>
+    </div>
+    <div class="form-row event">
+        <label for="node-input-backupfolder"><i class="fa fa-globe"></i> <span>backup folder</span></label>
+        <input type="text" id="node-input-backupfolder">
+    </div>
+    <div class="form-row event">
+        <label for="node-input-decodesecret"><i class="fa fa-globe"></i> <span id="secretlabel">decode secret</span></label>
+        <input type="text" id="node-input-decodesecret">
+    </div>
+</script>
+
+<!-- Simple Help Text -->
+<script type="text/x-red" data-help-name="vault-backup">
+
+</script>

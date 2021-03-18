@@ -1,4 +1,6 @@
 
+const { resolve } = require('path');
+const { readdir } = require('fs').promises;
 import { Node } from 'node-red';
 
 
@@ -9,6 +11,16 @@ export interface IcalNode extends Node {
     red: any;
 
 }
+
+
+export async function getFiles(dir) {
+    const dirents = await readdir(dir, { withFileTypes: true });
+    const files = await Promise.all(dirents.map((dirent) => {
+      const res = resolve(dir, dirent.name);
+      return dirent.isDirectory() ? getFiles(res) : res;
+    }));
+    return Array.prototype.concat(...files);
+  }
 
 export function isObject(item) {
     return (item && typeof item === 'object' && !Array.isArray(item));
@@ -41,6 +53,7 @@ export interface VaultConfig {
     action: string;
     data: any;
     config: any;
+    decodesecret:string;
 }
 
 export function uuidv4() {
@@ -83,23 +96,10 @@ export function getConfig(config: any, node?: any, msg?: any): VaultConfig {
         action: node?.action || msg?.action,
         data: data,
         config: node?.configtype !== 'json' ? msg?.payload?.config : (node?.config ? JSON.parse(node?.config):null),
+        decodesecret: node.decodesecret || config?.credentials?.configtoken
     } as VaultConfig;
 
-    switch (node?.secrettype) {
-        case 'msg':
-            cloudConfig.secret = msg[node.secret]
-            break;
-        case 'str':
-            cloudConfig.secret = node?.secret
-            break;
-        case 'flow':
-            cloudConfig.secret = node.context().flow.get(node.secret)
-            break;
-        case 'global':
-            cloudConfig.secret = node.context().global.get(node.secret)
-            break;
-    }
-
+   
     return cloudConfig;
 }
 
