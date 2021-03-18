@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/naimo84/node-red-contrib-hashicorp-vault/compare/v0.0.3...v0.0.4) (2021-03-18)
+
+
+### Features
+
+* first version of backup ([2107eb9](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/2107eb9d2f458373b37bccb97cb29d28d01add99))
+
 ### 0.0.3 (2021-02-12)
 
 
