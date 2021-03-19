@@ -64,42 +64,17 @@ export function uuidv4() {
 }
 
 export function getConfig(config: any, node?: any, msg?: any): VaultConfig {
-
-    let application = node.application;
-    if (node.applicationtype === "msg") {
-        for (let key of Object.keys(msg)) {
-            if (key === node.application) {
-                application = msg[key];
-                break;
-            }
-        }
-    }
-
-    let data;
-    if (node.datatype === "msg") {
-        for (let key of Object.keys(msg)) {
-            if (key === node.data) {
-                data = msg[key];
-                break;
-            }
-        }
-    }else{
-        data = (node?.data ? JSON.parse(node?.data) : null)
-    }
-
     const cloudConfig = {
         name: msg?.name || config?.name,
         endpoint: config?.endpoint,
         configtoken: config?.credentials?.configtoken,
-        application: application,
+        application: node.application,
         secret: node?.secret,
         action: node?.action || msg?.action,
-        data: data,
-        config: node?.configtype !== 'json' ? msg?.payload?.config : (node?.config ? JSON.parse(node?.config):null),
+        data: node.data,
+        config: node?.config,
         decodesecret: node.decodesecret || config?.credentials?.configtoken
     } as VaultConfig;
-
-   
     return cloudConfig;
 }
 

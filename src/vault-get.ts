@@ -11,18 +11,16 @@ module.exports = function (RED: any) {
         RED.nodes.createNode(this, config);
         let node = this;
         node.name = config.name;
-        node.application = config.application;
-        node.applicationtype = config.applicationtype;       
-        node.action = config.action;
-        node.data = config.data;
-        node.datatype = config.datatype;
+        
+        node.action = config.action;   
         node.status({ text: `` })
 
         try {
-
             node.msg = {};
             node.on('input', (msg, send, done) => {
                 node.secret = RED.util.evaluateNodeProperty(config.secret, config.secrettype, node, msg);
+                node.application = RED.util.evaluateNodeProperty(config.application, config.applicationtype, node, msg);
+                node.data = RED.util.evaluateNodeProperty(config.data, config.datatype, node, msg);
                 node.msg = RED.util.cloneMessage(msg);
                 send = send || function () { node.send.apply(node, arguments) }
                 processInput(node, msg, send, done, config.confignode);

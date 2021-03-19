@@ -7,11 +7,7 @@ module.exports = function (RED: any) {
 
     function engineNode(config: any) {
         RED.nodes.createNode(this, config);
-        let node = this;
-        node.secret = config.secret;
-        node.secrettype = config.secrettype;
-        node.config = config.config;
-        node.configtype = config.configtype;
+        let node = this;   
         node.action = config.action;
         node.status({ text: `` })
         try {
@@ -19,6 +15,9 @@ module.exports = function (RED: any) {
             node.msg = {};
             node.on('input', (msg, send, done) => {
                 node.msg = RED.util.cloneMessage(msg);
+                node.secret = RED.util.evaluateNodeProperty(config.secret, config.secrettype, node, msg);
+                node.config = RED.util.evaluateNodeProperty(config.config, config.configtype, node, msg);
+
                 send = send || function () { node.send.apply(node, arguments) }
                 processInput(node, msg, send, done, config.confignode);
             });
@@ -75,8 +74,7 @@ module.exports = function (RED: any) {
             }
 
             let newMsg = Object.assign(RED.util.cloneMessage(msg), {
-                payload: payload,
-                application: vaultConfig.application,
+                payload: payload,                
                 secret: vaultConfig.secret
             });
 
