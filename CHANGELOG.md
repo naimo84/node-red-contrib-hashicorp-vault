@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/naimo84/node-red-contrib-hashicorp-vault/compare/v0.0.4...v0.0.5) (2021-03-19)
+
+
+### Features
+
+* RED.util.evaluateNodeProperty ([e916fd6](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/e916fd6072e8526320a0831e5710a2e0ae845b97))
+
 ### [0.0.4](https://github.com/naimo84/node-red-contrib-hashicorp-vault/compare/v0.0.3...v0.0.4) (2021-03-18)
 
 
