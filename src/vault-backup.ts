@@ -70,10 +70,11 @@ module.exports = function (RED: any) {
                         let response = await vault.list(`${mount}/metadata`);
                         let keys = response.data.keys;
                         let payloadKeys = [];
+                        
                         for (let key of keys) {
-                            let response = await vault.read(`${mount}/data/${key}`)
+                            let response2 = await vault.read(`${mount}/data/${key}`)
                             payloadKeys.push({
-                                data: response.data?.data ? response.data.data : response.data,
+                                data: response2.data?.data ? response2.data.data : response2.data,
                                 key: key
                             })
                         }
