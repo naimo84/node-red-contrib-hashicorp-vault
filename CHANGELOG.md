@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/naimo84/node-red-contrib-hashicorp-vault/compare/v0.0.5...v0.0.6) (2021-05-09)
+
+
+### Features
+
+* use configtoken from env ([dc9e2ee](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/dc9e2ee617231d2eb53ea0fa8985d559259c18e0))
+
+
+### Bug Fixes
+
+* use response2 instead of response ([5ad3681](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/5ad3681b287f819669bbe58e4af428e2390f2c7a))
+
 ### [0.0.5](https://github.com/naimo84/node-red-contrib-hashicorp-vault/compare/v0.0.4...v0.0.5) (2021-03-19)
 
 
