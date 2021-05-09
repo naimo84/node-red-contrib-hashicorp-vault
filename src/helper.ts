@@ -75,6 +75,10 @@ export function getConfig(config: any, node?: any, msg?: any): VaultConfig {
         config: node?.config,
         decodesecret: node.decodesecret || config?.credentials?.configtoken
     } as VaultConfig;
+    if(config.configtokenenv){
+        cloudConfig.configtoken = process.env[config.configtokenenv];
+    }
+
     return cloudConfig;
 }
 

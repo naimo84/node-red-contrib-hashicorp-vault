@@ -6,12 +6,14 @@
             defaults: {
                 endpoint: {
                     value: '',
-                },               
+                },
                 name: {
                     value: '',
-                },               
+                },
+                configtokenenv: {},
+                configtokenenvtype:{}
             },
-            credentials: {               
+            credentials: {
                 configtoken: { type: "password" }
             },
             label: function () {
@@ -23,7 +25,11 @@
             oneditprepare: function () {
                 var node = this;
 
-               
+                $("#node-config-input-configtokenenv").typedInput({
+                    types: ["str", "env"],
+                    typeField: "#node-config-input-configtokenenvtype"
+                });
+                
             },
         });
 </script>
@@ -45,14 +51,27 @@
    
    
     <div class="form-row">
-        <label for="node-config-input-configtoken" style="width:160px !important">
+        <label for="node-config-input-configtoken" style="min-width:160px !important">
+            <i class="fa fa-key"></i>
+            <span>hardcoded Token:</span></label>
+        <input type="password" id="node-config-input-configtoken" placeholder="" style="width:280px !important">
+        
+    </div>
+    <div class="form-row">
+        <label  style="width:260px !important">
+         
+            <span>or using token from env/msg/...</span></label>
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-configtokenenv" style="min-width:160px !important">
             <i class="fa fa-key"></i>
             <span>Token:</span></label>
-        <input type="password" id="node-config-input-configtoken" placeholder="" style="width:280px !important">
+        <input type="text" id="node-config-input-configtokenenv" placeholder="" style="width:280px !important">
+        <input type="password" id="node-config-input-configtokenenvtype" placeholder="" style="width:280px !important">        
     </div>
 </script>
 
 <script type="text/x-red" data-help-name="vault-config">
-    
+
 
 </script>
