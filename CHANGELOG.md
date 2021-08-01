@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/naimo84/node-red-contrib-hashicorp-vault/compare/v0.0.6...v0.0.7) (2021-08-01)
+
+
+### Features
+
+* create or update for secret ([de51b57](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/de51b57e9a731973b9a958ec094ab48be4524594))
+
 ### [0.0.6](https://github.com/naimo84/node-red-contrib-hashicorp-vault/compare/v0.0.5...v0.0.6) (2021-05-09)
 
 
