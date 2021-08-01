@@ -12,6 +12,7 @@
                     required: false
                 },
                 name:{},
+                noupdate:{},
                 application: {},
                 applicationtype: {},
                 secret: {},
@@ -29,7 +30,7 @@
                 } else if (this.confignode.name) {
                     return this.confignode.name;
                 }
-                return "vault secrets";
+                return  `secrets - ${this.action}`;
             },
             icon: "icon.svg",
             paletteLabel: "secrets",
@@ -37,17 +38,22 @@
                 var node = this;
                 $("#node-input-data").typedInput({
                     types: ["msg", "json"],
-                    typeField: "#node-input-datatype"                  
+                    typeField: "#node-input-datatype"   ,
+                   
+                              
                 });
+                $("#node-input-data").typedInput('width', '100%')
                 $("#node-input-secret").typedInput({
                     types: ["str","msg", "flow","global"],
                     typeField: "#node-input-secrettype"
                 }); 
+                $("#node-input-secret").typedInput('width', '100%')
                 $("#node-input-application").typedInput({
                     types: ["msg", "str"],
                     typeField: "#node-input-applicationtype"                  
                 });
-                $("#node-input-application").typedInput('width', '300px');
+                $("#node-input-application").typedInput('width', '100%')
+
             }
         });
 </script>
@@ -97,7 +103,12 @@
           <option value="get">get</option>
           <option value="create">create</option>
           <option value="update">update</option>
+          <option value="createupdate">create or update</option>
         </select>
+    </div>
+    <div class="form-row event">
+        <label for="node-input-noupdate"><i class="fa fa-globe"></i> <span>properties not to update</span></label>
+        <input type="text" id="node-input-noupdate" placeholder="secret,user">
     </div>
     <div class="form-row event">
         <label for="node-input-data"><i class="fa fa-globe"></i> <span>data</span></label>
@@ -109,5 +120,5 @@
 
 <!-- Simple Help Text -->
 <script type="text/x-red" data-help-name="vault-get">
-
+    properties not to update: comma seperated list
 </script>
