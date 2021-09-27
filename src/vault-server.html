@@ -77,6 +77,7 @@
         <select id="node-input-action">          
           <option value="status">status</option>
           <option value="init">init</option>
+          <option value="raftJoin">raftJoin</option>          
           <option value="unseal">unseal</option>
         </select>
     </div>
@@ -84,6 +85,11 @@
         <label for="node-input-unsealkeys"><i class="fa fa-globe"></i> <span>unsealkeys</span></label>
         <input type="text" id="node-input-unsealkeys">
         <input type="hidden" id="node-input-unsealkeystype">
+    </div>  
+    <div class="form-row event">
+        <label for="node-input-raftJoin"><i class="fa fa-globe"></i> <span>raftJoin</span></label>
+        <input type="text" id="node-input-raftJoin">
+        <input type="hidden" id="node-input-raftJointype">
     </div>  
 </script>
 
