@@ -30,6 +30,7 @@
       "vault-config": "dist/vault-config.js",
       "vault-backup": "dist/vault-backup.js",
       "vault-get": "dist/vault-get.js",
+      "vault-server": "dist/vault-server.js",
       "vault-secret-engine": "dist/vault-secret-engine.js"
     }
   },

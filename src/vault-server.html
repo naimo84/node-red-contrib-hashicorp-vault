@@ -1,0 +1,92 @@
+<script type="text/javascript">
+
+
+    RED
+        .nodes
+        .registerType('vault-server', {
+            category: 'hashicorp vault',
+            defaults: {
+                name:{},
+                confignode: {
+                    value: "",
+                    type: "vault-config",
+                    required: false
+                },               
+                
+                action:{},
+                unsealkeys:{},
+                unsealkeystype:{}
+            },
+            inputs: 1,
+            outputs: 1,
+            color: "#DEBD5C",
+            label: function () {
+                if (this.name) {
+                    return this.name;
+                } else if (this.confignode.name) {
+                    return this.confignode.name;
+                }
+                return `server - ${this.action}`;
+            },
+            icon: "icon.svg",
+            paletteLabel: "server",
+            oneditprepare: function () {
+                var node = this;
+                
+                $("#node-input-unsealkeys").typedInput({
+                    types: ["msg", "json"],
+                    typeField: "#node-input-unsealkeystype"                  
+                });
+                $("#node-input-unsealkeys").typedInput('width', '300px');
+            }
+        });
+</script>
+
+<script type="text/x-red" data-template-name="vault-server">
+    <style>
+        .event {
+            display:flex;
+        }
+        .event input {
+            flex:1
+        }
+        .event select {
+            flex:2
+        }
+        .event label {
+            min-width: 110px;
+            align-self: center;
+        }  
+        .padding-top {
+            padding-top: 10px;
+        }
+    </style>   
+
+    <div class="form-row event">        
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span>Name</span></label>
+        <input type="text" id="node-input-name">
+    </div>
+    <hr/>
+    <div class="form-row event">
+        <label for="node-input-confignode"><i class="fa fa-globe"></i> <span>Config</span></label>
+        <input type="text" id="node-input-confignode">
+    </div>
+    
+    <div class="form-row event">
+        <label for="node-input-action"><i class="fa fa-clock-o"></i> <span>action</span></label>        
+        <select id="node-input-action">          
+          <option value="status">status</option>
+          <option value="init">init</option>
+          <option value="unseal">unseal</option>
+        </select>
+    </div>
+    <div class="form-row event">
+        <label for="node-input-unsealkeys"><i class="fa fa-globe"></i> <span>unsealkeys</span></label>
+        <input type="text" id="node-input-unsealkeys">
+        <input type="hidden" id="node-input-unsealkeystype">
+    </div>  
+</script>
+
+<script type="text/x-red" data-help-name="vault-server">
+
+</script>

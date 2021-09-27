@@ -53,6 +53,7 @@ export interface VaultConfig {
     action: string;
     data: any;
     config: any;
+    unsealkeys: any; 
     decodesecret:string;
 }
 
@@ -73,6 +74,7 @@ export function getConfig(config: any, node?: any, msg?: any): VaultConfig {
         action: node?.action || msg?.action,
         data: node.data,
         config: node?.config,
+        unsealkeys: node.unsealkeys,
         decodesecret: node.decodesecret || config?.credentials?.configtoken
     } as VaultConfig;
     if(config.configtokenenv){
