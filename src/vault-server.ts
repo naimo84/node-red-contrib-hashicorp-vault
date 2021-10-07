@@ -1,7 +1,7 @@
 
 import { NodeMessageInFlow, NodeMessage } from "node-red";
 import { getConfig } from "./helper";
-var nodeVault = require("node-vault")
+var nodeVault = require("@naimo84/node-vault")
 
 module.exports = function (RED: any) {
 
@@ -16,7 +16,8 @@ module.exports = function (RED: any) {
             node.on('input', (msg, send, done) => {
                 node.msg = RED.util.cloneMessage(msg);
                 node.unsealkeys = RED.util.evaluateNodeProperty(config.unsealkeys, config.unsealkeystype, node, msg);
-                node.raftJoin = RED.util.evaluateNodeProperty(config.raftJoin, config.raftJointype, node, msg);
+                node.raftjoin = RED.util.evaluateNodeProperty(config.raftjoin, config.raftjointype, node, msg);
+              
                 send = send || function () { node.send.apply(node, arguments) }
                 processInput(node, msg, send, done, config.confignode);
             });
@@ -59,7 +60,6 @@ module.exports = function (RED: any) {
                 payload = result;
             }
             else if (vaultConfig.action === 'raftJoin') {
-
                 const result = await vault.raftJoin(vaultConfig.raftJoin)
                 node.status({ shape: 'dot', fill: 'green', text: `${result} unsealed` })
                 payload = result;

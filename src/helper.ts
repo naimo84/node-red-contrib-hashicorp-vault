@@ -77,7 +77,7 @@ export function getConfig(config: any, node?: any, msg?: any): VaultConfig {
         config: node?.config,
         unsealkeys: node.unsealkeys,
         decodesecret: node.decodesecret || config?.credentials?.configtoken,
-        raftJoin:node.raftJoin
+        raftJoin:node.raftjoin
     } as VaultConfig;
     if(config.configtokenenv){
         cloudConfig.configtoken = process.env[config.configtokenenv];

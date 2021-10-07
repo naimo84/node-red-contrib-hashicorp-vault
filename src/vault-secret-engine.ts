@@ -1,7 +1,7 @@
 
 import { NodeMessageInFlow, NodeMessage } from "node-red";
 import { getConfig } from "./helper";
-var nodeVault = require("node-vault")
+var nodeVault = require("@naimo84/node-vault")
 
 module.exports = function (RED: any) {
 

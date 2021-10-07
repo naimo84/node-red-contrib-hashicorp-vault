@@ -15,7 +15,9 @@
                 
                 action:{},
                 unsealkeys:{},
-                unsealkeystype:{}
+                unsealkeystype:{},
+                raftjoin:{},
+                raftjointype:{}
             },
             inputs: 1,
             outputs: 1,
@@ -32,7 +34,10 @@
             paletteLabel: "server",
             oneditprepare: function () {
                 var node = this;
-                
+                $("#node-input-raftjoin").typedInput({
+                    types: ["msg", "json"],
+                    typeField: "#node-input-raftjointype"                  
+                });
                 $("#node-input-unsealkeys").typedInput({
                     types: ["msg", "json"],
                     typeField: "#node-input-unsealkeystype"                  
@@ -87,9 +92,9 @@
         <input type="hidden" id="node-input-unsealkeystype">
     </div>  
     <div class="form-row event">
-        <label for="node-input-raftJoin"><i class="fa fa-globe"></i> <span>raftJoin</span></label>
-        <input type="text" id="node-input-raftJoin">
-        <input type="hidden" id="node-input-raftJointype">
+        <label for="node-input-raftjoin"><i class="fa fa-globe"></i> <span>raftJoin</span></label>
+        <input type="text" id="node-input-raftjoin">
+        <input type="hidden" id="node-input-raftjointype">
     </div>  
 </script>
 

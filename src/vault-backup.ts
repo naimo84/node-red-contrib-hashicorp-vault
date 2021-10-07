@@ -3,7 +3,7 @@ import { NodeMessageInFlow, NodeMessage } from "node-red";
 import { getConfig, getFiles, mergeDeep } from "./helper";
 const fs = require('fs');
 const path = require('path');
-var nodeVault = require("node-vault")
+var nodeVault = require("@naimo84/node-vault")
 var CryptoJS = require("crypto-js");
 
 module.exports = function (RED: any) {
