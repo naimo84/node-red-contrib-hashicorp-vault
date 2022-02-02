@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-hashicorp-vault",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "NodeRed spring cloudconfig adapter",
   "author": {
     "name": "naimo84",
@@ -31,6 +31,7 @@
       "vault-backup": "dist/vault-backup.js",
       "vault-get": "dist/vault-get.js",
       "vault-server": "dist/vault-server.js",
+      "vault-policy": "dist/vault-policy.js",
       "vault-secret-engine": "dist/vault-secret-engine.js"
     }
   },

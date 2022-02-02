@@ -69,7 +69,7 @@ export function getConfig(config: any, node?: any, msg?: any): VaultConfig {
     const cloudConfig = {
         name: msg?.name || config?.name,
         endpoint: config?.endpoint,
-        configtoken: config?.credentials?.configtoken,
+        configtoken: config?.credentials?.configtoken || msg?.token,
         application: node.application,
         secret: node?.secret,
         action: node?.action || msg?.action,
@@ -79,6 +79,7 @@ export function getConfig(config: any, node?: any, msg?: any): VaultConfig {
         decodesecret: node.decodesecret || config?.credentials?.configtoken,
         raftJoin:node.raftjoin
     } as VaultConfig;
+    
     if(config.configtokenenv){
         cloudConfig.configtoken = process.env[config.configtokenenv];
     }

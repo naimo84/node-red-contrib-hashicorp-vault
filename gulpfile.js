@@ -1,6 +1,5 @@
 var gulp = require("gulp");
 var ts = require("gulp-typescript");
-var tsProject = ts.createProject("tsconfig.json");
 var sourcemaps = require('gulp-sourcemaps');
 var nodemon = require('gulp-nodemon');
 var watch = require('gulp-watch');
@@ -20,7 +19,7 @@ function copyHtml() {
 
 gulp.task("copy-html", copyHtml);
 
-gulp.task('develop', function (done) {
+gulp.task('develop', function (done) {   
     var stream = nodemon({
         legacyWatch: true,
         exec: 'node --inspect=9229 --preserve-symlinks      --experimental-modules       --trace-warnings     /usr/lib/node_modules/node-red/red.js',
@@ -32,7 +31,7 @@ gulp.task('develop', function (done) {
         delay: 2000,
         env: { "NO_UPDATE_NOTIFIER": "1" }
     });
-
+    const tsProject = ts.createProject("tsconfig.json");
     copyHtml();
     tsProject.src()
         .pipe(sourcemaps.init())
@@ -70,6 +69,7 @@ gulp.task('develop', function (done) {
 gulp.task("default", gulp.series(
     gulp.parallel('copy-html'),
     () => {
+        const tsProject = ts.createProject("tsconfig.json");
         return tsProject.src()
             .pipe(sourcemaps.init())
             .pipe(tsProject())

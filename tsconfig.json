@@ -4,7 +4,8 @@
         "paths": { "*": ["types/*"] },
         "outDir": "./dist",
         "target": "es5",
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "sourceMap": true
     },
     "include": [
         "./src/**/*"
