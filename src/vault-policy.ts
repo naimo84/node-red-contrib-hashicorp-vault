@@ -52,25 +52,21 @@ module.exports = function (RED: any) {
         }
         try {
             if (!vaultConfig.action || vaultConfig.action === 'get') {
-                let response = await vault.getPolicy(`${vaultConfig.secret}`)
+                let response = await vault.policies()
+              
                 payload = response.data?.data ? response.data.data : response.data;
             } else if (vaultConfig.action === 'create') {
-                try {
-                    let response = await vault.read(`${vaultConfig.secret}/data/${vaultConfig.application}`)
-                    payload = response.data?.data ? response.data.data : response.data;
-                    node.status({ shape: 'dot', fill: 'yellow', text: `${vaultConfig.secret}/data/${vaultConfig.application} already exists` })
-                }
-                catch {
-                    await vault.write(`${vaultConfig.secret}/data/${vaultConfig.application}`, vaultConfig.data)
-                    payload = vaultConfig.data?.data ? vaultConfig.data.data : vaultConfig.data;
-                    node.status({ shape: 'dot', fill: 'green', text: `${vaultConfig.secret}/data/${vaultConfig.application} created` })
-                }            
+                let response = await vault.addPolicy({
+                    name: vaultConfig.secret,
+                    rules: JSON.stringify(vaultConfig.data)
+                });
+                payload = response.data?.data ? response.data.data : response.data;              
+                node.status({ shape: 'dot', fill: 'yellow', text: `${vaultConfig.secret}/data/${vaultConfig.application} already exists` })
             }
-            else if (vaultConfig.action === 'update') {
-                let response = await vault.read(`${vaultConfig.secret}/data/${vaultConfig.application}`)
-                let data = mergeDeep(response.data, vaultConfig.data);
-                await vault.write(`${vaultConfig.secret}/data/${vaultConfig.application}`, data)
-                payload = data?.data ? data.data : data;
+            else if (vaultConfig.action === 'write') {
+               
+                await vault.write(`${vaultConfig.secret}/keys/${vaultConfig.application}`, vaultConfig.data)
+            
                 node.status({ shape: 'dot', fill: 'green', text: `${vaultConfig.secret}/data/${vaultConfig.application} updated` })
 
             }
