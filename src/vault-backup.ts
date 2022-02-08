@@ -47,7 +47,7 @@ module.exports = function (RED: any) {
     }
 
     async function processInput(node, msg: NodeMessageInFlow, send: (msg: NodeMessage | NodeMessage[]) => void, done: (err?: Error) => void, config) {
-        let vaultConfig = getConfig(RED.nodes.getNode(config), node, msg)
+        let vaultConfig = getConfig(RED.nodes.getNode(config), node, msg,RED)
         var options = {
             apiVersion: 'v1', // default
             endpoint: vaultConfig.endpoint,

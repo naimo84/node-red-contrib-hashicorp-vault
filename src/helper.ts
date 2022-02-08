@@ -16,11 +16,11 @@ export interface IcalNode extends Node {
 export async function getFiles(dir) {
     const dirents = await readdir(dir, { withFileTypes: true });
     const files = await Promise.all(dirents.map((dirent) => {
-      const res = resolve(dir, dirent.name);
-      return dirent.isDirectory() ? getFiles(res) : res;
+        const res = resolve(dir, dirent.name);
+        return dirent.isDirectory() ? getFiles(res) : res;
     }));
     return Array.prototype.concat(...files);
-  }
+}
 
 export function isObject(item) {
     return (item && typeof item === 'object' && !Array.isArray(item));
@@ -45,6 +45,7 @@ export function mergeDeep(target, ...sources) {
 }
 
 export interface VaultConfig {
+    initOptions: any;
     name: string;
     endpoint: string;
     configtoken: string;
@@ -53,9 +54,9 @@ export interface VaultConfig {
     action: string;
     data: any;
     config: any;
-    unsealkeys: any; 
-    raftJoin:any;
-    decodesecret:string;
+    unsealkeys: any;
+    raftJoin: any;
+    decodesecret: string;
 }
 
 export function uuidv4() {
@@ -65,10 +66,12 @@ export function uuidv4() {
     });
 }
 
-export function getConfig(config: any, node?: any, msg?: any): VaultConfig {
+export function getConfig(config: any, node?: any, msg?: any,RED?:any): VaultConfig {
+    
     const cloudConfig = {
         name: msg?.name || config?.name,
-        endpoint: config?.endpoint,
+        endpoint: config?.endpoint,        
+        initOptions: RED?.util.evaluateNodeProperty(config?.initOptions, config?.initOptionsType || "json", config, msg),
         configtoken: config?.credentials?.configtoken || msg?.token,
         application: node.application,
         secret: node?.secret,
@@ -77,10 +80,10 @@ export function getConfig(config: any, node?: any, msg?: any): VaultConfig {
         config: node?.config,
         unsealkeys: node.unsealkeys,
         decodesecret: node.decodesecret || config?.credentials?.configtoken,
-        raftJoin:node.raftjoin
-    } as VaultConfig;
-    
-    if(config.configtokenenv){
+        raftJoin: node.raftjoin
+    } as VaultConfig;   
+
+    if (config.configtokenenv) {
         cloudConfig.configtoken = process.env[config.configtokenenv];
     }
 

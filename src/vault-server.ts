@@ -17,7 +17,7 @@ module.exports = function (RED: any) {
                 node.msg = RED.util.cloneMessage(msg);
                 node.unsealkeys = RED.util.evaluateNodeProperty(config.unsealkeys, config.unsealkeystype, node, msg);
                 node.raftjoin = RED.util.evaluateNodeProperty(config.raftjoin, config.raftjointype, node, msg);
-              
+
                 send = send || function () { node.send.apply(node, arguments) }
                 processInput(node, msg, send, done, config.confignode);
             });
@@ -30,7 +30,7 @@ module.exports = function (RED: any) {
     }
 
     async function processInput(node, msg: NodeMessageInFlow, send: (msg: NodeMessage | NodeMessage[]) => void, done: (err?: Error) => void, config) {
-        let vaultConfig = getConfig(RED.nodes.getNode(config), node, msg)
+        let vaultConfig = getConfig(RED.nodes.getNode(config), node, msg, RED)
         var options = {
             apiVersion: 'v1', // default
             endpoint: vaultConfig.endpoint,
@@ -39,19 +39,23 @@ module.exports = function (RED: any) {
 
         // get new instance of the client
         let vault = nodeVault(options);
-        let payload = { keys: null, token: null };
+        let payload = { keys: null, token: null, initialized: false };
         try {
             if (!vaultConfig.action || vaultConfig.action === 'status') {
                 payload = await vault.status();
             }
             else if (vaultConfig.action === 'init') {
 
+                try {
+                    const result = await vault.init(vaultConfig.initOptions);
 
-                const result = await vault.init({ secret_shares: 1, secret_threshold: 1 });
-
-                payload.keys = result.keys;
-                payload.token = result.root_token;
-                node.status({ shape: 'dot', fill: 'green', text: `${vaultConfig.secret} created` })
+                    payload.keys = result.keys;
+                    payload.token = result.root_token;
+                    node.status({ shape: 'dot', fill: 'green', text: `${vaultConfig.endpoint} created` })
+                } catch (err) {
+                    payload = await vault.status();
+                    node.status({ shape: 'dot', fill: 'yellow', text: `${vaultConfig.endpoint} already initialized` })       
+                }
             }
             else if (vaultConfig.action === 'unseal') {
 

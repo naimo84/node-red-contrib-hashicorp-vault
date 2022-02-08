@@ -4,12 +4,13 @@ module.exports = function (RED: any) {
 
         this.name = config.name;
         this.endpoint = config.endpoint;
-        this.profiles = config.profiles ;
-        
-        this.label = config.label ;
-        this.configtokenenv = config.configtokenenv ;
-        this.configtokenenvtype = config.configtokenenvtype ;
+        this.profiles = config.profiles;
 
+        this.label = config.label;
+        this.configtokenenv = config.configtokenenv;
+        this.configtokenenvtype = config.configtokenenvtype;
+        this.initOptions = config.initOptions;
+        this.initOptionsType = config.initOptionsType;
     }
 
     RED.nodes.registerType('vault-config', configNode, {
