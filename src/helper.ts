@@ -83,8 +83,8 @@ export function getConfig(config: any, node?: any, msg?: any,RED?:any): VaultCon
         raftJoin: node.raftjoin
     } as VaultConfig;   
 
-    if (config.configtokenenv) {
-        cloudConfig.configtoken = process.env[config.configtokenenv];
+    if (config.configtokenenv) {        
+        cloudConfig.configtoken = RED?.util.evaluateNodeProperty(config?.configtokenenv, config?.configtokenenvtype, config, msg);
     }
 
     return cloudConfig;
