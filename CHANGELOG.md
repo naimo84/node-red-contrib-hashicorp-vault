@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.12 (2022-04-12)
+
+
+### Features
+
+* add policies ([5db3f84](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/5db3f840d01198121d4d98fad1a632c597dffd1f))
+* added update action to frontend ([427cfd5](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/427cfd5f3b4c5118c3cfa8f341635a2fefd50022))
+* clone input msg ([b8f5a42](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/b8f5a42d9dcaac348f850f2e789ba10ff8128da9))
+* create or update for secret ([de51b57](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/de51b57e9a731973b9a958ec094ab48be4524594))
+* first version of backup ([2107eb9](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/2107eb9d2f458373b37bccb97cb29d28d01add99))
+* initial commit/version ([5989bf7](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/5989bf7940dce71c387525b5f46c4c8ca9b435b1))
+* initOptions ([233184c](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/233184cca908cbc7a7f2dde0a79031b07496427f))
+* policy write ([d1f51b9](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/d1f51b98d4729dc36b51017108409749df73425b))
+* raftjoin ([9631069](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/96310690e02899a97fee95646b033374403dd97c))
+* raftjoin ([13a3d2a](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/13a3d2abea2053cfe6fbe66f8d18e14b8d12c1a5))
+* RED.util.evaluateNodeProperty ([e916fd6](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/e916fd6072e8526320a0831e5710a2e0ae845b97))
+* use configtoken from env ([dc9e2ee](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/dc9e2ee617231d2eb53ea0fa8985d559259c18e0))
+* vault server ([2436a48](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/2436a487b8891ab867b99f41f54c39181e2b38f3))
+
+
+### Bug Fixes
+
+* evaluateNodeProperty configtoken ([42a1f35](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/42a1f35e04a1f9a3b1a97d87fae2b2de4a1b58b6))
+* JSON Parse error ([8f942bb](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/8f942bbbc3af17a20b3b66a24db7b027dd940142))
+* name added ([a9fdb1c](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/a9fdb1c7e720e886321448f76aa83ca01b97ed65))
+* secret instead of mountpoint ([61ab5c5](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/61ab5c52ff6e3cb72a5d52642146acbf5de502da))
+* use response2 instead of response ([5ad3681](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/5ad3681b287f819669bbe58e4af428e2390f2c7a))
+
 ### 0.0.9 (2021-09-27)
 
 
