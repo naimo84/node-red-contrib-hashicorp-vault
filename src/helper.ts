@@ -66,12 +66,12 @@ export function uuidv4() {
     });
 }
 
-export function getConfig(config: any, node?: any, msg?: any,RED?:any): VaultConfig {
-    
+export function getConfig(config: any, node?: any, msg?: any, RED?: any): VaultConfig {
+
     const cloudConfig = {
         name: msg?.name || config?.name,
-        endpoint: config?.endpoint,        
-        initOptions: RED?.util.evaluateNodeProperty(config?.initOptions, config?.initOptionsType || "json", config, msg),
+        endpoint: config?.endpoint,
+        initOptions: RED?.util.evaluateNodeProperty(config?.initOptions || '{"recovery_threshold":1,"recovery_shares":1}', config?.initOptionsType || "json", config, msg),
         configtoken: config?.credentials?.configtoken || msg?.token,
         application: node.application,
         secret: node?.secret,
@@ -81,9 +81,9 @@ export function getConfig(config: any, node?: any, msg?: any,RED?:any): VaultCon
         unsealkeys: node.unsealkeys,
         decodesecret: node.decodesecret || config?.credentials?.configtoken,
         raftJoin: node.raftjoin
-    } as VaultConfig;   
+    } as VaultConfig;
 
-    if (config.configtokenenv) {        
+    if (config.configtokenenv) {
         cloudConfig.configtoken = RED?.util.evaluateNodeProperty(config?.configtokenenv, config?.configtokenenvtype, config, msg);
     }
 
