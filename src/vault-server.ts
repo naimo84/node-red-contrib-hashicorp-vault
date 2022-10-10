@@ -43,20 +43,7 @@ module.exports = function (RED: any) {
         try {
             if (!vaultConfig.action || vaultConfig.action === 'status') {
                 payload = await vault.status();
-            }
-            else if (vaultConfig.action === 'init') {
-
-                try {
-                    const result = await vault.init(vaultConfig.initOptions);
-
-                    payload.keys = result.keys;
-                    payload.token = result.root_token;
-                    node.status({ shape: 'dot', fill: 'green', text: `${vaultConfig.endpoint} created` })
-                } catch (err) {
-                    payload = await vault.status();
-                    node.status({ shape: 'dot', fill: 'yellow', text: `${vaultConfig.endpoint} already initialized` })       
-                }
-            }
+            }           
             else if (vaultConfig.action === 'unseal') {
 
                 const result = await vault.unseal({ secret_shares: 1, key: vaultConfig.unsealkeys[0] })

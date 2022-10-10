@@ -44,8 +44,7 @@ export function mergeDeep(target, ...sources) {
     return mergeDeep(target, ...sources);
 }
 
-export interface VaultConfig {
-    initOptions: any;
+export interface VaultConfig {   
     name: string;
     endpoint: string;
     configtoken: string;
@@ -70,8 +69,7 @@ export function getConfig(config: any, node?: any, msg?: any, RED?: any): VaultC
 
     const cloudConfig = {
         name: msg?.name || config?.name,
-        endpoint: config?.endpoint,
-        initOptions: RED?.util.evaluateNodeProperty(config?.initOptions || '{"recovery_threshold":1,"recovery_shares":1}', config?.initOptionsType || "json", config, msg),
+        endpoint: config?.endpoint,       
         configtoken: config?.credentials?.configtoken || msg?.token,
         application: node.application,
         secret: node?.secret,

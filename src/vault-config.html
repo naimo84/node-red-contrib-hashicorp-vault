@@ -11,9 +11,7 @@
                     value: '',
                 },
                 configtokenenv: {},
-                configtokenenvtype:{},
-                initOptions: {},
-                initOptionsType: {},
+                configtokenenvtype:{}                
             },
             credentials: {
                 configtoken: { type: "password" }
@@ -32,10 +30,7 @@
                     typeField: "#node-config-input-configtokenenvtype"
                 });
 
-                $("#node-config-input-initOptions").typedInput({
-                    types: ["json"],
-                    typeField: "#node-config-input-initOptionsType"
-                });
+                
                 
             },
         });
@@ -64,14 +59,7 @@
         <input type="password" id="node-config-input-configtoken" placeholder="" style="width:280px !important">
         
     </div>
-    <div class="form-row">
-        <label for="node-config-input-initOptions" style="min-width:160px !important">
-            <i class="fa fa-key"></i>
-            <span>initOptions:</span></label>
-        <input type="text" id="node-config-input-initOptions" placeholder="" style="width:280px !important">
-        <input type="hidden" id="node-config-input-initOptionsType" placeholder="" style="width:280px !important">
-        
-    </div>
+   
     <div class="form-row">
         <label  style="width:260px !important">
          
