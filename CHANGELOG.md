@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.14](https://github.com/naimo84/node-red-contrib-hashicorp-vault/compare/v0.0.13...v0.0.14) (2022-10-10)
+
+
+### Features
+
+* reomve initOptions, because not working ([e3ad952](https://github.com/naimo84/node-red-contrib-hashicorp-vault/commit/e3ad9523b6547419f1d8ba9fe347cb44dc257c8b))
+
 ### [0.0.13](https://github.com/naimo84/node-red-contrib-hashicorp-vault/compare/v0.0.12...v0.0.13) (2022-07-29)
 
 
